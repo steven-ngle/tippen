@@ -5,15 +5,18 @@ fn main() {
     println!("Source: {source}");
 
     println!("Type the quote:");
+    let start = std::time::Instant::now();
     let mut input = String::new();
     std::io::stdin()
         .read_line(&mut input)
         .expect("Input Error!");
-    print!("{input}");
+    let time = start.elapsed().as_secs_f64();
+    println!("You took: {time:.2} seconds");
+
 
     if input.trim_end() == quote {
-        println!("GOD SLAIN")
+        println!("GOD SLAIN");
     } else {
-        println!("YOU DIED")    
+        println!("YOU DIED");  
     }
 }
