@@ -13,10 +13,14 @@ fn main() {
     let time = start.elapsed().as_secs_f64();
     println!("You took: {time:.2} seconds");
 
-
     if input.trim_end() == quote {
         println!("GOD SLAIN");
     } else {
         println!("YOU DIED");  
     }
+
+    let characters = input.trim_end().chars().count();
+    let wpm = (characters as f64 / 5.0) / (time / 60.0);
+
+    println!("WPM: {wpm:.1}");
 }
