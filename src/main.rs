@@ -1,18 +1,27 @@
-fn show_quote(quote: &str, source: &str) {
-    println!("{quote}");
-    println!("Source: {source}");
+fn show_quote(quote: &Quote) {
+    println!("{}", quote.text);
+    println!("Source: {}", quote.source);
 }
 
 fn calculate_wpm(characters: usize, time: f64) -> f64 {
         return (characters as f64 / 5.0) / (time / 60.0);
 }
 
+struct Quote {
+    text: String,
+    source: String,
+}
+
 fn main() {
     let hint: &str = "Type ':quit' to end this program";
-    let quote: &str = "My purpose standeth unchanged. Those stripped of the Grace of Gold shall all meet death. In the embrace of Messmers flame.";
-    let source: &str = "Elden Ring";
+
+    let quote = Quote {
+        text: String::from("My purpose standeth unchanged. Those stripped of the Grace of Gold shall all meet death. In the embrace of Messmers flame."),
+        source: String::from("Elden Ring"),
+    };
+
     loop {
-        show_quote(quote, source);
+        show_quote(&quote);
 
         println!("{hint}");
 
@@ -28,7 +37,7 @@ fn main() {
 
         if typed == ":quit" {
             break;
-        } else if typed == quote {
+        } else if typed == &quote.text {
             println!("GOD SLAIN");
         } else {
             println!("YOU DIED");
