@@ -1,3 +1,8 @@
+struct Quote {
+    text: String,
+    source: String,
+}
+
 fn show_quote(quote: &Quote) {
     println!("{}", quote.text);
     println!("Source: {}", quote.source);
@@ -7,9 +12,13 @@ fn calculate_wpm(characters: usize, time: f64) -> f64 {
         return (characters as f64 / 5.0) / (time / 60.0);
 }
 
-struct Quote {
-    text: String,
-    source: String,
+fn read_input() -> String {
+    let mut input: String = String::new();
+    std::io::stdin()
+        .read_line(&mut input)
+        .expect("Input Error!");
+
+    return input;
 }
 
 fn main() {
@@ -28,10 +37,7 @@ fn main() {
         println!("Type the quote:");
             
         let start = std::time::Instant::now();
-        let mut input = String::new();
-        std::io::stdin()
-            .read_line(&mut input)
-            .expect("Input Error!");
+        let input = read_input();
         let time = start.elapsed().as_secs_f64();
         let typed = input.trim_end();
 
