@@ -21,6 +21,11 @@ fn read_input() -> String {
     return input;
 }
 
+fn count_characters(text: &str) -> usize {
+    let characters = text.chars().count();
+    return characters;
+}
+
 fn main() {
     let hint: &str = "Type ':quit' to end this program";
 
@@ -51,7 +56,7 @@ fn main() {
 
         println!("You took: {time:.2} seconds");
             
-        let characters = typed.chars().count();
+        let characters = count_characters(typed);
         let wpm = calculate_wpm(characters, time);
         println!("WPM: {wpm:.1}");
     }
