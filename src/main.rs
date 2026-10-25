@@ -1,10 +1,24 @@
+use std::{fs::File, path::Path};
+use serde::Deserialize;
+use rand::seq::IndexedRandom;
+
+#[derive(Deserialize)]
 struct Quote {
-    text: String,
+    quote: String,
     source: String,
 }
 
+fn load_quotes() ->  Vec<Quote> {
+    let file_path = Path::new("quotes/quotes.json");
+    let file = File::open(file_path).expect("The file containing the quotes could not be opened.");
+
+    let quotes: Vec<Quote> = serde_json::from_reader(file).expect("The file containing the quotes has invalid data.");
+
+    return quotes;
+}
+
 fn show_quote(quote: &Quote) {
-    println!("{}", quote.text);
+    println!("{}", quote.quote);
     println!("Source: {}", quote.source);
 }
 
@@ -28,14 +42,14 @@ fn count_characters(text: &str) -> usize {
 
 fn main() {
     let hint: &str = "Type ':quit' to end this program";
-
-    let quote = Quote {
-        text: String::from("My purpose standeth unchanged. Those stripped of the Grace of Gold shall all meet death. In the embrace of Messmers flame."),
-        source: String::from("Elden Ring"),
-    };
+    let quotes = load_quotes();
+    let mut rng = rand::rng();
 
     loop {
-        show_quote(&quote);
+
+        let quote = quotes.choose(&mut rng).expect("List of quotes is empty");
+        
+        show_quote(quote);
 
         println!("{hint}");
 
@@ -48,7 +62,7 @@ fn main() {
 
         if typed == ":quit" {
             break;
-        } else if typed == &quote.text {
+        } else if typed == &quote.quote {
             println!("GOD SLAIN");
         } else {
             println!("YOU DIED");
