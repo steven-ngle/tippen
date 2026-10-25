@@ -23,7 +23,7 @@ fn show_quote(quote: &Quote) {
 }
 
 fn calculate_wpm(characters: usize, time: f64) -> f64 {
-        return (characters as f64 / 5.0) / (time / 60.0);
+    return (characters as f64 / 5.0) / (time / 60.0);
 }
 
 fn read_input() -> String {
@@ -41,7 +41,6 @@ fn count_characters(text: &str) -> usize {
 }
 
 fn main() {
-    let hint: &str = "Type ':quit' to end this program";
     let quotes = load_quotes();
     let mut rng = rand::rng();
 
@@ -51,8 +50,6 @@ fn main() {
         
         show_quote(quote);
 
-        println!("{hint}");
-
         println!("Type the quote:");
             
         let start = std::time::Instant::now();
@@ -60,9 +57,7 @@ fn main() {
         let time = start.elapsed().as_secs_f64();
         let typed = input.trim_end();
 
-        if typed == ":quit" {
-            break;
-        } else if typed == &quote.quote {
+        if typed == &quote.quote {
             println!("GOD SLAIN");
         } else {
             println!("YOU DIED");
@@ -73,5 +68,12 @@ fn main() {
         let characters = count_characters(typed);
         let wpm = calculate_wpm(characters, time);
         println!("WPM: {wpm:.1}");
+
+        println!("Try again? (y/n)");
+        let answer = read_input();
+        if answer.trim() == "n" {
+            break;
+        }
+
     }
 }
